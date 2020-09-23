@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Добавить новый учебный план</h1>
+
+    <form method="POST" class="post-form">
+	    {% csrf_token %}
+	    <div class="row">
+	      <div class="col-3">
+	        {{ form.code|as_crispy_field }}
+	      </div>
+	      <div class="col-3">
+	        {{ form.program_leader|as_crispy_field }}
+	      </div>
+	      <div class="col-3">
+	        {{ form.year|as_crispy_field }}
+	      </div>
+	    </div>
+	    {{ form.program_name|as_crispy_field }}
+	    {{ form.program_sub_name|as_crispy_field }}
+	    {{ form.description|as_crispy_field }}
+	    <button type="submit" class="btn btn-success">Сохранить план</button>
+	</form>
+{% endblock %}
+
+
+
+
+
+            

@@ -1,0 +1,100 @@
+<html>
+    <head>
+    	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		
+        <title>Django Girls blog</title>
+        <style>
+		   dt {
+		    float: left; /* Для размещения на одной строке */
+		    width: 200px; /* Ширина для текста */
+		    text-align: left; /* Выравнивание по правому краю */
+		    padding-right: 5px; /* Отступ справа */
+		    min-height: 1px; /* Минимальная высота */
+		    font-weight: bold;
+		   }
+		   dd {
+		    position: relative; /* Относительное позиционирование */
+		    top: -1px; /* Смещаем поля вверх */
+		    margin-bottom: 10px; /* Расстояние между строк */
+		   }
+
+		   table {
+			font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+			font-size: 14px;
+			border-collapse: collapse;
+			text-align: center;
+			}
+			th, td:first-child {
+			background: #AFCDE7;
+			color: DarkBlue;
+			padding: 10px 20px;
+			width:40px;
+			}
+			th, td {
+			border-style: solid;
+			border-width: 0 1px 1px 0;
+			border-color: white;
+			text-align: left;
+			padding: 5px 10px;
+			}
+			th, td:last-child {
+			width:60%;	
+			}
+			td {
+			background: #D8E6F3;
+			}
+			th:first-child, td:first-child {
+			text-align: left;
+			}
+			td.sub  {
+			background: #AFCDF7;
+			width:60px;
+			}
+		 </style>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+
+        {% for plan in plans %}
+    	
+    	<div>
+    		<h2>{{ plan.code }} {{ plan.program_name }}</h2>
+    		<dl>
+    			<dt>Направление подготовки:</dt>
+    			<dd>{{ plan.program_name }}</dd>
+    			<dt>Направленность:</dt>
+    			<dd>{{ plan.program_sub_name }}</dd>
+    			<dt>Год:</dt>
+    			<dd>{{ plan.year }}</dd>
+    			<dt>Руководитель:</dt>
+    			<dd>{{ plan.program_leader }}</dd>
+    		</dl>
+    	</div>
+
+    	<ol>
+    		{% for subject in plan.subject_set.all %}
+    		<li>	{{ subject }} </li>
+    		<table>
+    			{% for competence in subject.competence_set.all %}
+    			<tr>
+    				<td>{{ competence.code }}</td>
+    				<td>{{ competence.name }}</td>
+    				<td>
+    					{{ competence.description|linebreaksbr }}
+    					<table>
+    					{% for subcompetence in competence.subcompetence_set.all %}
+    							<tr><td class="sub">{{ subcompetence.code }}</td><td>{{ subcompetence.name }}</td><td>{{ subcompetence.description|linebreaksbr }} </td></tr>
+    					{% endfor %}
+    					</table>
+    				</td>
+    			</tr>
+    			{% endfor %}	
+    		</table>
+    		{% endfor %}
+    	</ol>
+		{% endfor %}
+    </body>
+</html>

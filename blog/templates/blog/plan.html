@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+        <div>
+            <h1>{{ plan.code }} {{ plan.program_name }}</h1>
+            <a href="../../">Вернуться к перечню планов</a>
+            
+        </div>
+
+        
+    	
+    	<div>
+    		<dl>
+    			<dt>Направление подготовки:</dt>
+    			<dd>{{ plan.program_name }}</dd>
+    			<dt>Направленность:</dt>
+    			<dd>{{ plan.program_sub_name }}</dd>
+    			<dt>Год:</dt>
+    			<dd>{{ plan.year }}</dd>
+    			<dt>Руководитель:</dt>
+    			<dd>{{ plan.program_leader }}</dd>
+    		</dl>
+    	</div>
+
+    	<ol>
+    		{% for subject in plan.subject_set.all %}
+    		<li>	{{ subject }} </li>
+    		<table>
+    			{% for competence in subject.competence_set.all %}
+    			<tr>
+    				<td>{{ competence.code }}</td>
+    				<td>{{ competence.name }}</td>
+    				<td>
+    					{{ competence.description|linebreaksbr }}
+    					<table>
+    					{% for subcompetence in competence.subcompetence_set.all %}
+    							<tr><td class="sub">{{ subcompetence.code }}</td><td>{{ subcompetence.name }}</td><td>{{ subcompetence.description|linebreaksbr }} </td></tr>
+    					{% endfor %}
+    					</table>
+    				</td>
+    			</tr>
+    			{% endfor %}	
+    		</table>
+    		{% endfor %}
+    	</ol>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+{% extends 'blog/base.html' %}
+{% block content %}
+        <div>
+            <h1><a href="/">Перечень планов</a></h1>
+        </div>
+
+        {% for plan in plans %}
+    	
+    	<div>
+    		<h2><a href="plan/{{ plan.id }}">{{ plan.code }} {{ plan.program_name }}. Предметов: {{ plan.number_of_subjects }}</a></h2>
+    		<a class="btn btn-default" href="{% url 'plan_edit' id=plan.pk %}"><span class="glyphicon glyphicon-pencil">Редактировать</span></a>
+    		<dl>
+    			<dt>Направление подготовки:</dt>
+    			<dd>{{ plan.program_name }}</dd>
+    			<dt>Направленность:</dt>
+    			<dd>{{ plan.program_sub_name }}</dd>
+    			<dt>Год:</dt>
+    			<dd>{{ plan.year }}</dd>
+    			<dt>Руководитель:</dt>
+    			<dd>{{ plan.program_leader }}</dd>
+    		</dl>
+    	</div>
+
+    	
+		{% endfor %}
+{% endblock %}
